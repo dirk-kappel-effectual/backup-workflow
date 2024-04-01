@@ -1,0 +1,30 @@
+name: Backup GitHub repo to s3 bucket
+
+on:
+  workflow_dispatch:
+  push:
+    branches:
+      - "main"
+
+jobs:
+  backup:
+    name: Backup
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repo to be backed up
+        uses: actions/checkout@v4
+
+      - name: Mirror repo to s3
+        run: |
+          git clone --mirror $GITHUB_REPOSITORY
+        #   cd $GITHUB_REPOSITORY
+        #   git push --mirror s3://$S3_BUCKET/$S3_PREFIX
+        # uses: 
+        # with:
+        #   s3-bucket: 'dirks-bucket-221221'
+        #   s3-prefix: 'githubRepoBackup'
+        #   s3-region: 'us-east-1'
+        #   repository-path: 'repo-to-backup'
+      
+      - name: List directories
+        run: ls -ltra
