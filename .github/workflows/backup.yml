@@ -16,7 +16,7 @@ jobs:
 
       - name: Mirror repo to s3
         run: |
-          git clone --mirror $GITHUB_REPOSITORY
+          git clone --mirror https://github.com/$GITHUB_REPOSITORY
         #   cd $GITHUB_REPOSITORY
         #   git push --mirror s3://$S3_BUCKET/$S3_PREFIX
         # uses: 
