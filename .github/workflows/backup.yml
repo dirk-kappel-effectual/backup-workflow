@@ -36,7 +36,7 @@ jobs:
       #   run: ls -ltra
 
       - name: Run script
-        run: ${GITHUB_ACTION_PATH}/backup-repo-to-s3.sh
+        run: ./backup-repo-to-s3.sh
         env:
           PREFIX: "packer-ansible"
           REPOSITORY_NAME: "packer-ansible-repo"
