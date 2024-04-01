@@ -26,10 +26,10 @@ jobs:
       - name: get repo name
         run: echo "Repo name is $REPO_NAME"
 
-      # - name: Mirror repo to s3
-      #   run: |
+      - name: Mirror repo to s3
+        run: |
 
-        # git clone --mirror https://github.com/$GITHUB_REPOSITORY
+        git clone --mirror https://github.com/$GITHUB_REPOSITORY
         #   cd $GITHUB_REPOSITORY
         #   git push --mirror s3://$S3_BUCKET/$S3_PREFIX
         # uses: 
@@ -39,8 +39,8 @@ jobs:
         #   s3-region: 'us-east-1'
         #   repository-path: 'repo-to-backup'
       
-      # - name: tar and compress
-      #   run: tar -czvf backup.tar.gz backup-workflow
+      - name: tar and compress
+        run: tar -czvf $REPO_NAME.tar.gz $REPO_NAME.git
 
-      # - name: List directories
-      #   run: ls -ltra
+      - name: List directories
+        run: ls -ltra
