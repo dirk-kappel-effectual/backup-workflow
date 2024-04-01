@@ -23,27 +23,22 @@ jobs:
       #   env:
       #    GITHUB_CONTEXT: ${{ toJson(github) }}
 
-      - name: get repo name
-        run: echo "Repo name is $REPO_NAME"
+      # - name: get repo name
+      #   run: echo "Repo name is $REPO_NAME"
 
-      - name: get url
-        run: echo $GITHUB_SERVER_URL/$GITHUB_REPOSITORY
+      # - name: Mirror repo to s3
+      #   run: git clone --mirror $GITHUB_SERVER_URL/$GITHUB_REPOSITORY
+    
+      # - name: tar and compress
+      #   run: tar -czvf $REPO_NAME.tar.gz $REPO_NAME.git
 
-      - name: Mirror repo to s3
-        run: git clone --mirror https://github.com/$GITHUB_REPOSITORY
+      # - name: List directories
+      #   run: ls -ltra
 
-        # git clone --mirror https://github.com/$GITHUB_REPOSITORY
-        #   cd $GITHUB_REPOSITORY
-        #   git push --mirror s3://$S3_BUCKET/$S3_PREFIX
-        # uses: 
-        # with:
-        #   s3-bucket: 'dirks-bucket-221221'
-        #   s3-prefix: 'githubRepoBackup'
-        #   s3-region: 'us-east-1'
-        #   repository-path: 'repo-to-backup'
-      
-      - name: tar and compress
-        run: tar -czvf $REPO_NAME.tar.gz $REPO_NAME.git
-
-      - name: List directories
-        run: ls -ltra
+      - name: Run script
+        run: ${GITHUB_ACTION_PATH}/backup-repo-to-s3.sh
+        env:
+          PREFIX: "packer-ansible"
+          REPOSITORY_NAME: "packer-ansible-repo"
+          BUCKET: "github-backup-S3"
+          REPO_NAME: ${{ github.event.repository.name }}
