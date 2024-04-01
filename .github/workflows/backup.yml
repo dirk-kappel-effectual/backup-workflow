@@ -26,6 +26,9 @@ jobs:
       - name: get repo name
         run: echo "Repo name is $REPO_NAME"
 
+      - name: get url
+        run: echo $GITHUB_SERVER_URL/$GITHUB_REPOSITORY
+
       - name: Mirror repo to s3
         run: git clone --mirror https://github.com/$GITHUB_REPOSITORY
 
